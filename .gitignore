@@ -1,0 +1,10 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Temp files
+temp_*.js
+
+# OS
+.DS_Store
+Thumbs.db

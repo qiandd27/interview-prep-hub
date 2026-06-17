@@ -1,10 +1,10 @@
 services:
   - type: web
     name: interview-prep-hub
-    runtime: static
-    buildCommand: ""
-    staticPublishPath: .
-    pullRequestPreviewsEnabled: true
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: node server.js
     envVars:
       - key: NODE_ENV
         value: production

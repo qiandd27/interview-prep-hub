@@ -1,0 +1,16 @@
+{
+  "name": "interview-prep-hub",
+  "version": "3.9.0",
+  "description": "腾讯游戏测试面试宝典 - 静态站点",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "interview-prep-hub": "file:"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
