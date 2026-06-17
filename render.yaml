@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: interview-prep-hub
+    runtime: static
+    buildCommand: ""
+    staticPublishPath: .
+    pullRequestPreviewsEnabled: true
+    envVars:
+      - key: NODE_ENV
+        value: production
