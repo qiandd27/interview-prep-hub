@@ -78,7 +78,23 @@ nav a:hover,nav a.active{color:var(--ac);background:var(--a2);border-color:var(-
 .pt{text-align:right;font-size:.68rem;color:var(--td)}
 footer{text-align:center;padding:1.2rem;color:var(--td);font-size:.74rem;border-top:1px solid var(--bd);margin-top:1.2rem}
 @media(max-width:768px){.c{padding:.6rem}.hero{padding:1.2rem .4rem .8rem}nav{padding:.3rem .5rem}nav .logo{margin-right:0;width:100%;text-align:center;margin-bottom:.15rem}.sc{flex-direction:column;gap:.15rem}.ct{display:block;overflow-x:auto}}
-</style></head><body>
+</style>
+    <style>
+      .quiz-mode-switch button {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        color: white;
+        cursor: pointer;
+        font-size: 14px;
+      }
+      #quiz-feedback {
+        white-space: pre-wrap;
+        line-height: 1.6;
+      }
+    </style>
+
+  </head><body>
 <nav><div class="logo">&#x1f3ae; 腾讯游戏测试面试宝典 <span>/ v3</span></div>
 <a href="#game" class="active" data-nav="game">&#x1f3ae; 游戏测试</a><a href="#network" data-nav="network">🌐 网络</a><a href="#redis" data-nav="redis">💾 Redis</a><a href="#linux" data-nav="linux">🐧 Linux</a><a href="#dr" data-nav="dr">&#x1f6e1; 容灾</a><a href="#stress" data-nav="stress">&#x1f4ca; 压测</a><a href="#dist" data-nav="dist">&#x1f310; 分布式</a><a href="#python" data-nav="python">&#x1f40d; Python</a><a href="#auto" data-nav="auto">&#x1f916; 自动化</a><a href="#apm" data-nav="apm">📊 APM</a><a href="#ai" data-nav="ai">💡 AI</a><a href="#method" data-nav="method">&#x1f4cb; 方法</a><a href="#quiz-s" data-nav="quiz">&#x1f3af; 面试</a></nav>
 <div class="hero"><h1>腾讯 &#xb7; 游戏测试 <span class="im">增长中台</span> 面试全攻略</h1><div class="brow"><span class="ht">容灾测试</span><span class="ht">Python编程</span><span class="ht">需求沟通</span><span class="ht">服务器架构</span><span class="ht">数据分析</span><span class="ht">测试方案</span></div><p>&#x7cbe;&#x51c6;&#x5339;&#x914d;&#x817e;&#x8baf;&#x6e38;&#x620f;&#x6d4b;&#x8bd5;JD &#xb7; &#x91cd;&#x8981;&#x8003;&#x70b9;<span class="im">&#x6807;&#x7ea2;&#x52a0;&#x7c97;</span> &#xb7; &#x4ee3;&#x7801;<span class="im">&#x9010;&#x884c;&#x6ce8;&#x91ca;</span></p><div class="modules"><div class="mo on" data-target="game" onclick="switchModule('game')"><span class="dot" style="background:var(--rd)"></span>&#x6e38;&#x620f;&#x6d4b;&#x8bd5;</div><div class="mo" data-target="dr" onclick="switchModule('dr')"><span class="dot" style="background:var(--gn)"></span>&#x5bb9;&#x707e;</div><div class="mo" data-target="stress" onclick="switchModule('stress')"><span class="dot" style="background:var(--or)"></span>&#x538b;&#x6d4b;</div><div class="mo" data-target="dist" onclick="switchModule('dist')"><span class="dot" style="background:var(--ac)"></span>&#x5206;&#x5e03;&#x5f0f;</div><div class="mo" data-target="python" onclick="switchModule('python')"><span class="dot" style="background:var(--pu)"></span>Python</div><div class="mo" data-target="auto" onclick="switchModule('auto')"><span class="dot" style="background:var(--or)"></span>&#x81ea;&#x52a8;&#x5316;</div><div class="mo" data-target="method" onclick="switchModule('method')"><span class="dot" style="background:var(--ac)"></span>&#x65b9;&#x6cd5;</div><div class="mo" data-target="apm" onclick="switchModule('apm')"><span class="dot" style="background:var(--or)"></span>APM</div><div class="mo" data-target="ai" onclick="switchModule('ai')"><span class="dot" style="background:var(--pu)"></span>AI</div></div></div>
@@ -1856,6 +1872,10 @@ JD中写了『有AI相关经验者优先』，如果我有这方面经验，一�
 <div class="ib">🎯 <span class="im">面试亮点</span>：「场景法最适合<span class="im">端到端测试</span>。面试时要能画出一个功能的<span class="im">业务流程图</span>。」</div>
 </div></div></div>
 id="quiz-s" style="margin-top:1.2rem"><div class="mh"><div class="ic" style="background:var(--a2)">🎯</div><div><h2>模拟面试 — 45题随机抽</h2><p>覆盖所有7大模块，即时反馈</p></div></div>
+    <div style="display:flex;gap:10px;margin:10px 0;align-items:center;">
+      <button onclick="toggleStudyMode()" id="btn-study-mode" style="padding:8px 16px;border:none;border-radius:4px;background:#4A90D9;color:white;cursor:pointer;font-size:14px;">📖 学习模式：关</button>
+      <span style="color:#999;font-size:12px;">开启后直接显示答案和解析</span>
+    </div>
 <div class="qc" id="quiz-card"><div class="qh" id="quiz-category"></div><div class="qq" id="quiz-question"></div><div class="qo" id="quiz-options"></div><div class="qf" id="quiz-feedback"></div><button class="qn" id="quiz-next" onclick="nextQuiz()">下一题 →</button></div>
 <div class="pb"><div class="pf" id="progress-fill" style="width:0%"></div></div><div class="pt"><span id="quiz-score"></span></div></section>
 
@@ -1876,7 +1896,17 @@ document.querySelectorAll('nav a[data-nav]').forEach(a=>{a.addEventListener('cli
 function toggleAcc(btn){const i=btn.closest('.ac-i');i.classList.toggle('open');const c=i.querySelector('.ac-ct');c.style.maxHeight=i.classList.contains('open')?c.scrollHeight+'px':'0'}
 document.querySelectorAll('.ac-i.open').forEach(i=>{const c=i.querySelector('.ac-ct');if(c)c.style.maxHeight=c.scrollHeight+'px'});
 
-const quizBank=[
+
+  // 学习模式
+  let studyMode = false;
+  function toggleStudyMode() {
+    studyMode = !studyMode;
+    const btn = document.getElementById('btn-study-mode');
+    btn.textContent = studyMode ? '📖 学习模式：开' : '📖 学习模式：关';
+    btn.style.background = studyMode ? '#2ECC71' : '#4A90D9';
+    loadQuiz(); // 重新加载题目
+  }
+  const quizBank=[
   {cat:'游戏测试',q:'游戏测试最易忽略的测试类型是？',opts:['功能','数据上报','UI','兼容性'],ans:1,exp:'数据上报是增长中台核心，但很多测试只关注功能而忽略埋点验证。上报数据错误会导致运营决策出错。'},
   {cat:'容灾',q:'RTO的含义是？',opts:['恢复数据量','恢复时间目标','冗余时间','重启时间'],ans:1,exp:'RTO=能忍受多久不能用，RPO=能忍受丢多少数据。容灾测试核心是验证这两个指标。'},
   {cat:'压测',q:'为什么压测关注P99而非平均值？',opts:['P99更好看','平均值被长尾拉偏','P99更好算','公司规定'],ans:1,exp:'少数长尾请求拉高平均值，掩盖1%用户的极差体验。P99才能反映"绝大多数"用户的真实表现。'},
@@ -1994,6 +2024,21 @@ function loadQuiz(){
   document.getElementById('quiz-next').className='qn';
   document.getElementById('progress-fill').style.width=(qIdx/qShuffled.length*100)+'%';
   document.getElementById('quiz-score').textContent=qIdx+'/'+qShuffled.length;
+
+    // 学习模式：自动显示答案
+    if (quizMode === 'study') {
+        const correct = qShuffled[qIdx].ans;
+        const opts = document.querySelectorAll('.qob');
+        opts.forEach((b, i) => {
+            if (i === correct) b.classList.add('ok');
+        });
+        const fb = document.getElementById('quiz-feedback');
+        fb.className = 'qf on ok';
+        fb.textContent = '✅ 正确答案：' + qShuffled[qIdx].opts[correct] + '
+
+📝 解析：' + qShuffled[qIdx].exp;
+        document.getElementById('quiz-next').className = 'qn on';
+    }
 }
 function answerQuiz(chosen,correct){
   const buttons=document.querySelectorAll('.qob');
@@ -2001,7 +2046,13 @@ function answerQuiz(chosen,correct){
   const fb=document.getElementById('quiz-feedback');
   const ok=chosen===correct;
   fb.className='qf on '+(ok?'ok':'no');
-  fb.textContent=(ok?'✅ 正确！':'❌ 错误！')+' '+qShuffled[qIdx].exp;
+  fb.textContent = (ok ? '✅ 正确！
+
+📝 解析：' : '❌ 错误！正确答案：' + qShuffled[qIdx].opts[qShuffled[qIdx].ans] + '
+
+📝 解析：') + qShuffled[qIdx].exp;
+        fb.style.whiteSpace = 'pre-wrap';
+        fb.style.lineHeight = '1.6';
   if(ok)qCorrect++;
   document.getElementById('quiz-next').className='qn on';
   document.getElementById('progress-fill').style.width=((qIdx+1)/qShuffled.length*100)+'%';
