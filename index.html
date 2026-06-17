@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>腾讯游戏测试面试宝典 v3.3 | Python面试全覆盖</title><style>
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>腾讯游戏测试面试宝典 v3.4 | Python面试全覆盖</title><style>
 :root{--bg:#f5f7fa;--ca:#fff;--el:#eef1f5;--bd:#dde2ea;--b2:#b0bfd1;--tx:#323a4a;--td:#7a8496;--tb:#111827;--ac:#2563eb;--a2:#2563eb10;--rd:#dc2626;--rl:#fef2f2;--rb:#fecaca;--gn:#16a34a;--gl:#f0fdf4;--pu:#7c3aed;--or:#ea580c;--ra:10px;--rs:6px;--tr:0.25s ease;--fm:'Cascadia Code',Consolas,monospace;--fs:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;--ss:0 1px 3px rgba(0,0,0,.06)}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;font-size:15px;scroll-padding-top:68px}
@@ -1571,17 +1571,100 @@ id="auto">
 <h5>🚨 案例1：进程故障注入</h5>
 <p><span class="im">故障类型</span>：kill -9杀掉逻辑层进程</p>
 <p><span class="im">注入方式</span>：在预发布环境执行<code>kill -9 &lt;pid&gt;</code></p>
-<p><span class="im">验证指标</span>：RTO≤5分钟，RPO≤1分钟，数据一致性100%</p>
-<div class="ib">🎯 <span class="im">面试这样说</span>：「容灾测试要测<span class="im">故障注入→监控告警→自动恢复→数据一致性验证</span>全流程。」</div>
+<p><span class="im">验证指标</span>：</p>
+<ul>
+<li>RTO：从进程被杀到服务恢复的时间（目标≤5分钟）</li>
+<li>数据一致性：恢复后玩家数据是否完整</li>
+<li>告警：监控系统是否在1分钟内发现故障</li>
+</ul>
+<p><span class="im">预期结果</span>：</p>
+<ul>
+<li>监控告警≤1分钟</li>
+<li>自动重启/手动重启≤4分钟</li>
+<li>RTO ≤ 5分钟</li>
+<li>RPO ≤ 1分钟（丢失数据量）</li>
+</ul>
+<div class="ib">🎯 <span class="im">面试这样说</span>：「容灾测试要测<span class="im">故障注入→监控告警→自动恢复→数据一致性验证</span>全流程。不能只测'服务能不能恢复'，还要测'恢复后数据对不对'。」</div>
+
+<h5>🚨 案例2：网络故障注入</h5>
+<p><span class="im">故障类型</span>：接入层与逻辑层网络隔离</p>
+<p><span class="im">注入方式</span>：<code>iptables -A INPUT -s &lt;logic_ip&gt; -j DROP</code></p>
+<p><span class="im">验证指标</span>：</p>
+<ul>
+<li>客户端表现：是否触发重连机制</li>
+<li>服务端表现：是否标记逻辑层为"不可用"</li>
+<li>恢复验证：网络恢复后，积压请求是否正确处理</li>
+</ul>
+<p><span class="im">发现问题</span>：某次测试中，网络恢复后，<span class="im">积压的请求导致逻辑层OOM</span>！</p>
+<div class="ib">🎯 <span class="im">面试金句</span>：「容灾测试不是'测正常'，而是'<span class="im">测异常后的恢复能力</span>'。最怕的是'恢复了，但数据错了'。」</div>
 </div></div></div>
 <div class="ac-i"><button class="ac-t" onclick="toggleAcc(this)"><span class="tt">Python脚本案例 <span class="badge b-g">实战</span></span><span class="ar">▼</span></button>
 <div class="ac-ct"><div class="ac-b">
-<h5>🐍 案例1：日志分析脚本</h5>
-<p>自动找出响应时间>1s的接口，并按出现次数排序。</p>
-<div class="ib">🎯 <span class="im">面试亮点</span>：「我用Python写了一个<span class="im">日志分析脚本</span>，比用Excel手动分析快100倍。」</div>
-<h5>🐍 案例2：接口并发调用脚本</h5>
-<p>用ThreadPoolExecutor模拟20/50/100个并发用户，验证接口性能。</p>
-<div class="ib">🎯 <span class="im">面试亮点</span>：「我用<span class="im">ThreadPoolExecutor</span>写了一个并发测试脚本。」</div>
+<h5>🐍 案例1：日志分析脚本（完整可运行）</h5>
+<pre># 需求：分析Nginx访问日志，找出响应时间>1s的请求
+import re
+from collections import defaultdict
+
+def analyze_slow_requests(log_file, threshold=1.0):
+    """分析慢请求，返回按次数排序的URL列表"""
+    slow_requests = defaultdict(int)
+    
+    with open(log_file, 'r', encoding='utf-8') as f:
+        for line in f:
+            # 正则匹配：response_time
+            match = re.search(r'"response_time":(\d+\.?\d*)', line)
+            if match:
+                resp_time = float(match.group(1))
+                if resp_time > threshold:
+                    # 提取URL
+                    url_match = re.search(r'"(GET|POST) (\S+)', line)
+                    if url_match:
+                        url = url_match.group(2)
+                        slow_requests[url] += 1
+    
+    # 按慢请求次数排序
+    return sorted(slow_requests.items(), key=lambda x: x[1], reverse=True)
+
+# 使用
+result = analyze_slow_requests('/var/log/nginx/access.log')
+for url, count in result[:10]:  # top 10慢接口
+    print(f"{url}: {count}次")</pre>
+<div class="ib">🎯 <span class="im">面试亮点</span>：「我用Python写了一个<span class="im">日志分析脚本</span>，自动找出响应时间>1s的接口，并按出现次数排序。这比用Excel手动分析快100倍。」</div>
+
+<h5>🐍 案例2：接口并发调用脚本（完整可运行）</h5>
+<pre># 需求：并发调用API，验证接口的性能
+import requests
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from time import time
+
+def call_api(url, payload):
+    """调用单个API，返回状态和耗时"""
+    start = time()
+    try:
+        resp = requests.post(url, json=payload, timeout=5)
+        elapsed = time() - start
+        return {'status': resp.status_code, 'elapsed': elapsed}
+    except Exception as e:
+        return {'status': 'ERROR', 'elapsed': time() - start, 'error': str(e)}
+
+def concurrent_test(url, payload, concurrency=10, total=100):
+    """并发测试，返回统计结果"""
+    results = []
+    with ThreadPoolExecutor(max_workers=concurrency) as executor:
+        futures = [executor.submit(call_api, url, payload) for _ in range(total)]
+        for future in as_completed(futures):
+            results.append(future.result())
+    
+    # 统计
+    success = sum(1 for r in results if r['status'] == 200)
+    avg_time = sum(r['elapsed'] for r in results) / len(results)
+    return {'total': total, 'success': success, 'avg_time': avg_time}
+
+# 使用
+result = concurrent_test('http://api.example.com/login', {'user': 'test'}, concurrency=20, total=200)
+print(f"成功率: {result['success']/result['total']*100:.1f}%")
+print(f"平均响应时间: {result['avg_time']:.3f}s")</pre>
+<div class="ib">🎯 <span class="im">面试亮点</span>：「我用<span class="im">ThreadPoolExecutor</span>写了一个并发测试脚本，可以模拟20/50/100个并发用户，验证接口的性能和稳定性。」</div>
 </div></div></div>
 <div class="ac-i"><button class="ac-t" onclick="toggleAcc(this)"><span class="tt">更多高频面试题 + 标准答案 <span class="badge b-b">高频</span></span><span class="ar">▼</span></button>
 <div class="ac-ct"><div class="ac-b">
@@ -1594,12 +1677,63 @@ id="auto">
 </div></div></div>
 </div></div>
 
-<section id="quiz-s" style="margin-top:1.2rem"><div class="mh"><div class="ic" style="background:var(--a2)">🎯</div><div><h2>模拟面试 — 18题随机抽</h2><p>覆盖所有7大模块，即时反馈</p></div></div>
+<div class="ac-i"><button class="ac-t" onclick="toggleAcc(this)"><span class="tt">APM/AI模块面试题 <span class="badge b-p">高频</span></span><span class="ar">▼</span></button>
+<div class="ac-ct"><div class="ac-b">
+<h5>📊 高频问题8：什么是APM？核心指标有哪些？</h5>
+<p><span class="im">标准答案</span>：</p>
+<pre>「APM（Application Performance Monitoring）是应用性能监控。
+核心指标有4个：
+1. 【QPS】每秒查询数 —— 吞吐量
+2. 【响应时间】P50/P95/P99 —— 延迟
+3. 【错误率】4xx/5xx占比 —— 稳定性
+4. 【可用性】uptime占比 —— 可靠性
+
+面试时这样说：
+『我熟悉APM核心指标，能用监控数据定位性能瓶颈。
+比如P99响应时间突增，我会先查Trace链路，找到慢SQL或慢接口。』</pre>
+
+<h5>📊 高频问题9：什么是Trace链路追踪？</h5>
+<p><span class="im">标准答案</span>：</p>
+<pre>「Trace是分布式链路追踪，用来定位跨服务调用的性能瓶颈。
+核心概念：
+- TraceID：全局唯一，串联整个调用链
+- SpanID：每个服务调用的唯一标识
+- ParentSpanID：父调用的SpanID
+
+实际案例：
+某次玩家登录慢，通过Trace发现是『鉴权服务→数据库』这层慢。
+进一步排查发现是数据库连接池满了，优化后P99从2s降到200ms。」</pre>
+<div class="ib">🎯 <span class="im">面试亮点</span>：「我不仅知道Trace概念，还能<span class="im">用Trace定位真实性能问题</span>。」</div>
+
+<h5>🤖 高频问题10：AI在测试中有哪些应用场景？</h5>
+<p><span class="im">标准答案</span>：</p>
+<pre>「AI在测试中有3大应用场景：
+1. 【测试用例生成】用LLM根据需求文档生成测试用例
+2. 【日志异常检测】用ML模型识别异常日志模式
+3. 【智能回归】用AI预测哪些用例最有可能失败
+
+JD中写了『有AI相关经验者优先』，如果我有这方面经验，一定要突出！」</pre>
+
+<h5>🤖 高频问题11：什么是Prompt工程？</h5>
+<p><span class="im">标准答案</span>：</p>
+<pre>「Prompt工程是设计和优化提示词，让AI输出更准确。
+核心技巧：
+1. 【角色设定】『你是一个资深测试工程师』
+2. 【任务描述】『请根据以下需求生成测试用例』
+3. 【输出格式】『输出格式为：用例ID|用例标题|预期结果』
+4. 【Few-shot示例】给1-2个示例
+
+面试时可以演示：
+『我用Prompt工程让GPT生成的测试用例覆盖率从60%提升到85%。』</pre>
+<div class="ib">🎯 <span class="im">面试加分项</span>：「如果JD有『AI经验优先』，一定要准备<span class="im">1-2个AI测试案例</span>。」</div>
+</div></div></div>
+
+<section id="quiz-s" style="margin-top:1.2rem"><div class="mh"><div class="ic" style="background:var(--a2)">🎯</div><div><h2>模拟面试 — 22题随机抽</h2><p>覆盖所有7大模块，即时反馈</p></div></div>
 <div class="qc" id="quiz-card"><div class="qh" id="quiz-category"></div><div class="qq" id="quiz-question"></div><div class="qo" id="quiz-options"></div><div class="qf" id="quiz-feedback"></div><button class="qn" id="quiz-next" onclick="nextQuiz()">下一题 →</button></div>
 <div class="pb"><div class="pf" id="progress-fill" style="width:0%"></div></div><div class="pt"><span id="quiz-score"></span></div></section>
 
 </div>
-<footer>🎮 腾讯游戏测试面试宝典 v3.3 · 10大模块 · 对标最新JD</footer>
+<footer>🎮 腾讯游戏测试面试宝典 v3.4 · 10大模块 · 对标最新JD</footer>
 
 <script>
 function switchModule(name){
