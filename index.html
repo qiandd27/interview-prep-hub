@@ -2026,7 +2026,7 @@ function loadQuiz(){
   document.getElementById('quiz-score').textContent=qIdx+'/'+qShuffled.length;
 
     // 学习模式：自动显示答案
-    if (quizMode === 'study') {
+    if (studyMode) {
         const correct = qShuffled[qIdx].ans;
         const opts = document.querySelectorAll('.qob');
         opts.forEach((b, i) => {
@@ -2034,9 +2034,7 @@ function loadQuiz(){
         });
         const fb = document.getElementById('quiz-feedback');
         fb.className = 'qf on ok';
-        fb.textContent = '✅ 正确答案：' + qShuffled[qIdx].opts[correct] + '
-
-📝 解析：' + qShuffled[qIdx].exp;
+        fb.textContent = '\u2705 \u6B63\u786E\u7B54\u6848\uFF1A' + qShuffled[qIdx].opts[correct] + '\\n\\n\ud83d\udcda \u89E3\u6790\uFF1A' + qShuffled[qIdx].exp;
         document.getElementById('quiz-next').className = 'qn on';
     }
 }
@@ -2046,11 +2044,7 @@ function answerQuiz(chosen,correct){
   const fb=document.getElementById('quiz-feedback');
   const ok=chosen===correct;
   fb.className='qf on '+(ok?'ok':'no');
-  fb.textContent = (ok ? '✅ 正确！
-
-📝 解析：' : '❌ 错误！正确答案：' + qShuffled[qIdx].opts[qShuffled[qIdx].ans] + '
-
-📝 解析：') + qShuffled[qIdx].exp;
+  fb.textContent = (ok ? '\u2705 \u6B63\u786E\uFF01\\n\\n\ud83d\udcda \u89E3\u6790\uFF1A' : '\u274C \u9519\uFF01\u6B63\u786E\u7B54\u6848\uFF1A' + qShuffled[qIdx].opts[qShuffled[qIdx].ans] + '\\n\\n\ud83d\udcda \u89E3\u6790\uFF1A') + qShuffled[qIdx].exp;
         fb.style.whiteSpace = 'pre-wrap';
         fb.style.lineHeight = '1.6';
   if(ok)qCorrect++;
