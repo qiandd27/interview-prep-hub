@@ -1565,6 +1565,33 @@ id="auto">
 <div class="ib">🎯 <span class="im">面试这样说</span>：「测试方案的核心是<span class="im">风险驱动</span>——不是把所有功能都测一遍，而是<span class="im">优先测最容易出问题的地方</span>。」</div>
 </div></div></div>
 
+
+<div class="ac-i"><button class="ac-t" onclick="toggleAcc(this)"><span class="tt">容灾测试详细案例 <span class="badge b-r">必看</span></span><span class="ar">▼</span></button>
+<div class="ac-ct"><div class="ac-b">
+<h5>🚨 案例1：进程故障注入</h5>
+<p><span class="im">故障类型</span>：kill -9杀掉逻辑层进程</p>
+<p><span class="im">注入方式</span>：在预发布环境执行<code>kill -9 &lt;pid&gt;</code></p>
+<p><span class="im">验证指标</span>：RTO≤5分钟，RPO≤1分钟，数据一致性100%</p>
+<div class="ib">🎯 <span class="im">面试这样说</span>：「容灾测试要测<span class="im">故障注入→监控告警→自动恢复→数据一致性验证</span>全流程。」</div>
+</div></div></div>
+<div class="ac-i"><button class="ac-t" onclick="toggleAcc(this)"><span class="tt">Python脚本案例 <span class="badge b-g">实战</span></span><span class="ar">▼</span></button>
+<div class="ac-ct"><div class="ac-b">
+<h5>🐍 案例1：日志分析脚本</h5>
+<p>自动找出响应时间>1s的接口，并按出现次数排序。</p>
+<div class="ib">🎯 <span class="im">面试亮点</span>：「我用Python写了一个<span class="im">日志分析脚本</span>，比用Excel手动分析快100倍。」</div>
+<h5>🐍 案例2：接口并发调用脚本</h5>
+<p>用ThreadPoolExecutor模拟20/50/100个并发用户，验证接口性能。</p>
+<div class="ib">🎯 <span class="im">面试亮点</span>：「我用<span class="im">ThreadPoolExecutor</span>写了一个并发测试脚本。」</div>
+</div></div></div>
+<div class="ac-i"><button class="ac-t" onclick="toggleAcc(this)"><span class="tt">更多高频面试题 + 标准答案 <span class="badge b-b">高频</span></span><span class="ar">▼</span></button>
+<div class="ac-ct"><div class="ac-b">
+<h5>🦊 高频问题5：你为什么选择游戏测试而不是开发？</h5>
+<p><span class="im">标准答案</span>：「我选择游戏测试是因为：兴趣匹配+能力匹配+发展空间+成就感」</p>
+<h5>🦊 高频问题6：你对加班怎么看？</h5>
+<p><span class="im">标准答案</span>：「我能接受合理的加班，但更倾向于<span class="im">提高效率、减少加班</span>。」</p>
+<h5>🦊 高频问题7：你的职业规划是什么？</h5>
+<p><span class="im">标准答案</span>：「1-2年成为<span class="im">游戏测试专家</span>，3-5年成为<span class="im">测试架构师</span>，长期成为<span class="im">质量总监</span>。」</p>
+</div></div></div>
 </div></div>
 
 <section id="quiz-s" style="margin-top:1.2rem"><div class="mh"><div class="ic" style="background:var(--a2)">🎯</div><div><h2>模拟面试 — 18题随机抽</h2><p>覆盖所有7大模块，即时反馈</p></div></div>
