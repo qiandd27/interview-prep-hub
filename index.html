@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>腾讯游戏测试面试宝典 v3.2 | Python面试全覆盖</title><style>
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>腾讯游戏测试面试宝典 v3.3 | Python面试全覆盖</title><style>
 :root{--bg:#f5f7fa;--ca:#fff;--el:#eef1f5;--bd:#dde2ea;--b2:#b0bfd1;--tx:#323a4a;--td:#7a8496;--tb:#111827;--ac:#2563eb;--a2:#2563eb10;--rd:#dc2626;--rl:#fef2f2;--rb:#fecaca;--gn:#16a34a;--gl:#f0fdf4;--pu:#7c3aed;--or:#ea580c;--ra:10px;--rs:6px;--tr:0.25s ease;--fm:'Cascadia Code',Consolas,monospace;--fs:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;--ss:0 1px 3px rgba(0,0,0,.06)}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;font-size:15px;scroll-padding-top:68px}
@@ -1501,12 +1501,78 @@ id="auto">
 </table>
 </div></div></div>
 </div></div>
-<section id="quiz-s" style="margin-top:1.2rem"><div class="mh"><div class="ic" style="background:var(--a2)">🎯</div><div><h2>模拟面试 — 16题随机抽</h2><p>覆盖所有7大模块，即时反馈</p></div></div>
+
+<div class="ms" id="interview">
+<div class="mh"><div class="ic" style="background:#e1f5fe">🎯</div><div><h2>面试实战 —— JD深度解析 + 自我介绍 + 测试方案模板</h2><p>岗位职责解读 · 要求拆解 · 自我介绍模板 · 测试方案实战</p></div></div>
+<div class="tgs"><span class="tg">JD解析</span><span class="tg">自我介绍</span><span class="tg">测试方案</span><span class="tg">面试技巧</span></div>
+<div class="ac-m">
+
+<div class="ac-i open"><button class="ac-t" onclick="toggleAcc(this)"><span class="tt">岗位职责深度解读 <span class="badge b-r">必看</span></span><span class="ar">▼</span></button>
+<div class="ac-ct"><div class="ac-b">
+<h5>📋 职责1：需求沟通 + 测试方案撰写</h5>
+<p><span class="im">字面意思</span>：和产品、开发对齐需求细节，写测试方案文档</p>
+<p><span class="im">潜台词</span>：</p>
+<ul>
+<li>你不能只等别人告诉你测什么——要<span class="im">主动挖需求</span></li>
+<li>测试方案不是写给自己看的，要<span class="im">让开发/产品都认可</span></li>
+<li>隐含能力：<span class="im">文档能力 + 沟通推动</span></li>
+</ul>
+<div class="ib">🎯 <span class="im">面试准备</span>：准备一个<span class="im">测试方案模板</span>+ 一个<span class="im">真实案例</span></div>
+
+<h5>📋 职责2：服务器容灾测试执行</h5>
+<p><span class="im">字面意思</span>：执行容灾演练，验证系统在故障时的表现</p>
+<p><span class="im">潜台词</span>：</p>
+<ul>
+<li>这是<span class="im">核心差异化能力</span>——很多测试只会功能，不会容灾</li>
+<li>需要懂：<span class="im">RTO/RPO、故障注入、监控告警</span></li>
+<li>要有<span class="im">预发布环境实操经验</span></li>
+</ul>
+<div class="ib">🎯 <span class="im">面试准备</span>：熟记<span class="im">RTO vs RPO</span> + 准备<span class="im">容灾测试案例</span></div>
+
+<h5>📋 职责3：部分Python代码编写</h5>
+<p><span class="im">字面意思</span>：要会写Python，但不是纯开发</p>
+<p><span class="im">潜台词</span>：</p>
+<ul>
+<li>写<span class="im">测试工具/脚本</span>，不是业务系统</li>
+<li>可能会用<span class="im">pytest/自动化框架</span></li>
+<li>代码能力是<span class="im">门槛</span>，不是核心竞争力</li>
+</ul>
+<div class="ib">🎯 <span class="im">面试准备</span>：准备<span class="im">2-3个Python脚本案例</span>+ 能手写<span class="im">装饰器/生成器</span></div>
+</div></div></div>
+
+<div class="ac-i"><button class="ac-t" onclick="toggleAcc(this)"><span class="tt">自我介绍模板（1分钟） <span class="badge b-g">实战</span></span><span class="ar">▼</span></button>
+<div class="ac-ct"><div class="ac-b">
+<h5>🎤 模板结构</h5>
+<p>【开场】您好，我是[姓名]，[工作年限]年测试经验。</p>
+<p>【游戏经验】我深度体验过[游戏A]、[游戏B]等，对[核心玩法]有系统理解。</p>
+<p>【技术能力】我熟悉Python，用过pytest/Requests写过[测试工具]。</p>
+<p>【容灾经验】我执行过[容灾演练类型]，验证过RTO/RPO指标。</p>
+<p>【结尾】我对贵公司的[游戏产品]很感兴趣，希望能加入团队贡献价值。</p>
+<div class="ib">🎯 <span class="im">面试技巧</span>：「自我介绍不是背简历！要<span class="im">突出与JD匹配的能力</span>，每个点都要有<span class="im">具体案例支撑</span>。」</div>
+</div></div></div>
+
+<div class="ac-i"><button class="ac-t" onclick="toggleAcc(this)"><span class="tt">测试方案模板 <span class="badge b-b">高频</span></span><span class="ar">▼</span></button>
+<div class="ac-ct"><div class="ac-b">
+<h5>📝 标准测试方案结构</h5>
+<p>1. <span class="im">测试目标</span>：为什么测</p>
+<p>2. <span class="im">测试范围</span>：测什么（功能/性能/容灾/兼容性）</p>
+<p>3. <span class="im">测试策略</span>：怎么测（等价类/边界值/场景法）</p>
+<p>4. <span class="im">测试用例设计</span>：测多少（P0/P1/P2优先级）</p>
+<p>5. <span class="im">测试环境</span>：在哪测（预发布/生产脱敏数据）</p>
+<p>6. <span class="im">测试进度</span>：何时测（需求分析/用例编写/执行/回归）</p>
+<p>7. <span class="im">风险评估</span>：有什么风险（环境/数据/时间）</p>
+<p>8. <span class="im">交付物</span>：产出什么（方案/用例/报告/脚本）</p>
+<div class="ib">🎯 <span class="im">面试这样说</span>：「测试方案的核心是<span class="im">风险驱动</span>——不是把所有功能都测一遍，而是<span class="im">优先测最容易出问题的地方</span>。」</div>
+</div></div></div>
+
+</div></div>
+
+<section id="quiz-s" style="margin-top:1.2rem"><div class="mh"><div class="ic" style="background:var(--a2)">🎯</div><div><h2>模拟面试 — 18题随机抽</h2><p>覆盖所有7大模块，即时反馈</p></div></div>
 <div class="qc" id="quiz-card"><div class="qh" id="quiz-category"></div><div class="qq" id="quiz-question"></div><div class="qo" id="quiz-options"></div><div class="qf" id="quiz-feedback"></div><button class="qn" id="quiz-next" onclick="nextQuiz()">下一题 →</button></div>
 <div class="pb"><div class="pf" id="progress-fill" style="width:0%"></div></div><div class="pt"><span id="quiz-score"></span></div></section>
 
 </div>
-<footer>🎮 腾讯游戏测试面试宝典 v3.2 · 10大模块 · 对标最新JD</footer>
+<footer>🎮 腾讯游戏测试面试宝典 v3.3 · 10大模块 · 对标最新JD</footer>
 
 <script>
 function switchModule(name){
