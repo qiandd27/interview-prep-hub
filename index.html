@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>腾讯游戏测试面试宝典 v3.7 | Python面试全覆盖</title><style>
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>腾讯游戏测试面试宝典 v3.8 | Python面试全覆盖</title><style>
 :root{--bg:#f5f7fa;--ca:#fff;--el:#eef1f5;--bd:#dde2ea;--b2:#b0bfd1;--tx:#323a4a;--td:#7a8496;--tb:#111827;--ac:#2563eb;--a2:#2563eb10;--rd:#dc2626;--rl:#fef2f2;--rb:#fecaca;--gn:#16a34a;--gl:#f0fdf4;--pu:#7c3aed;--or:#ea580c;--ra:10px;--rs:6px;--tr:0.25s ease;--fm:'Cascadia Code',Consolas,monospace;--fs:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;--ss:0 1px 3px rgba(0,0,0,.06)}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;font-size:15px;scroll-padding-top:68px}
@@ -1860,7 +1860,7 @@ id="quiz-s" style="margin-top:1.2rem"><div class="mh"><div class="ic" style="bac
 <div class="pb"><div class="pf" id="progress-fill" style="width:0%"></div></div><div class="pt"><span id="quiz-score"></span></div></section>
 
 </div>
-<footer>🎮 腾讯游戏测试面试宝典 v3.7 · 10大模块 · 对标最新JD</footer>
+<footer>🎮 腾讯游戏测试面试宝典 v3.8 · 10大模块 · 对标最新JD</footer>
 
 <script>
 function switchModule(name){
@@ -1900,45 +1900,45 @@ const quizBank=[
   {cat:'APM',q:'Trace链路追踪的核心作用？',opts:['定位跨服务调用的性能瓶颈','生成测试用例','自动化部署','数据备份'],ans:0,exp:'Trace通过TraceID串联整个调用链，能精确定位是哪个服务、哪个数据库查询慢。是分布式系统性能优化的核心工具。面试时要能讲一个真实案例。'},
   {cat:'AI',q:'JD中写有AI相关经验者优先，如何准备？',opts:['准备1-2个AI测试案例','忽略它','说自已会AI','随便写'],ans:0,exp:'JD明确写了"有AI相关经验者优先"，这是加分项。要准备1-2个案例：比如用GPT生成测试用例、用ML检测日志异常。不能只说"我会AI"，要用事实说话。'},
   {cat:'面试实战',q:'JD中"认真细致"标注了（重要），这意味着？',opts:['一票否决项','可以忽略','随便写','不重要'],ans:0,exp:'"认真细致"是硬性要求中的一票否决项。测试不细致会导致漏测、错测、生产事故。面试时要准备STAR案例：因为细致发现过什么重大bug。'},
-  # === 游戏测试 ===
+  // === 游戏测试 ===
   {cat:'游戏测试',q:'游戏服务器压力测试的核心指标？',opts:['QPS/响应时间/错误率','CPU/内存','网络带宽','日志大小'],ans:0,exp:'游戏服务器压测核心指标：QPS（吞吐量）、响应时间P95/P99（延迟）、错误率（稳定性）。还要关注同时在线用户数（CCU）。'},
   {cat:'游戏测试',q:'Unity中如何模拟网络延迟？',opts:['Network Emulation','Time.deltaTime','FixedUpdate','Coroutine'],ans:0,exp:'Unity的Network Emulation可以模拟延迟、丢包、带宽限制。测试时要模拟弱网环境（2G/3G），验证游戏体验。'},
   
-  # === 容灾 ===
+  // === 容灾 ===
   {cat:'容灾',q:'两地三中心架构是指？',opts:['主中心+同城备中心+异地备中心','两个主中心+三个备中心','北京+上海+深圳','生产+测试+开发'],ans:0,exp:'两地三中心：主生产中心（城市A）+ 同城灾备中心（城市A）+ 异地灾备中心（城市B）。RPO≈0，RTO<30分钟。'},
   {cat:'容灾',q:'容灾演练的常见类型？',opts:['计划内演练/突发演练/桌面演练','只测备份','只测恢复','只测监控'],ans:0,exp:'容灾演练分3类：1) 计划内演练（定期）；2) 突发演练（随机）；3) 桌面演练（不走真实流量）。要覆盖所有关键业务场景。'},
   
-  # === 网络 ===
+  // === 网络 ===
   {cat:'网络',q:'HTTP和HTTPS的区别？',opts:['HTTPS有TLS/SSL加密','HTTP更快','HTTPS不需要证书','HTTP更安全'],ans:0,exp:'HTTPS = HTTP + TLS/SSL加密。防止中间人攻击、数据窃听。游戏登录/支付必须用HTTPS。'},
   {cat:'网络',q:'TCP和UDP的区别？',opts:['TCP可靠有序，UDP不可靠但快','TCP快，UDP慢','TCP无连接，UDP有连接','都一样'],ans:0,exp:'TCP：可靠传输（三次握手、重传、有序）、慢但准。UDP：不可靠（可能丢包）、快。游戏实时对战用UDP，登录/支付用TCP。'},
   
-  # === Redis ===
+  // === Redis ===
   {cat:'Redis',q:'Redis持久化方式RDB和AOF的区别？',opts:['RDB快照，AOF日志','RDB日志，AOF快照','都一样','都不持久化'],ans:0,exp:'RDB：定期快照，恢复快但会丢数据。AOF：记录每条命令，数据完整但文件大。生产环境建议RDB+AOF混合使用。'},
   {cat:'Redis',q:'Redis集群模式下，数据怎么分布？',opts:['Hash Slot（16384个槽位）','轮询','随机','主从复制'],ans:0,exp:'Redis Cluster用Hash Slot分配数据：16384个槽位，每个key通过CRC16算法映射到某个槽位。扩缩容时重新分片。'},
   
-  # === Linux ===
+  // === Linux ===
   {cat:'Linux',q:'如何查看某个进程占用的内存？',opts:['top/htop','ls','cd','mkdir'],ans:0,exp:'top：实时查看进程资源占用（CPU%/MEM%）。htop是top的增强版，更直观。面试时要能说出几个关键指标：PID、CPU%、MEM%、TIME+。'},
   {cat:'Linux',q:'grep命令的作用？',opts:['文本搜索','文件管理','进程管理','网络配置'],ans:0,exp:'grep用于在文件或输出中搜索匹配的文本。常用：grep "error" log.txt（搜索error）、grep -r "404" /var/log（递归搜索）。测试时用来分析日志。'},
   
-  # === 压测 ===
+  // === 压测 ===
   {cat:'压测',q:'Locust和JMeter的区别？',opts:['Locust用Python，JMeter用Java','Locust更复杂','JMeter更轻量','都一样'],ans:0,exp:'Locust：Python脚本定义用例，轻量，适合复杂逻辑。JMeter：GUI配置，重，适合简单压测。游戏压测推荐Locust（可以模拟复杂玩家行为）。'},
   {cat:'压测',q:'压测时要注意什么？',opts:['逐步加压/监控资源/分析瓶颈','只管发请求','不管服务器死活','只看QPS'],ans:0,exp:'压测4要素：1) 逐步加压（找到拐点）；2) 监控服务器资源（CPU/内存/磁盘IO）；3) 分析瓶颈（数据库慢查询？带宽不够？）；4) 记录环境配置。'},
   
-  # === 分布式 ===
+  // === 分布式 ===
   {cat:'分布式',q:'CAP定理是指？',opts:['一致性/可用性/分区容错性','并发/原子性/持久性','CPU/内存/磁盘','延迟/吞吐量/错误率'],ans:0,exp:'CAP：Consistency（一致性）、Availability（可用性）、Partition tolerance（分区容错性）。分布式系统只能同时满足其中2个。游戏通常选AP（可用+分区容错），金融选CP（一致+分区容错）。'},
   {cat:'分布式',q:'什么是幂等性？',opts:['多次调用结果相同','调用一次','调用多次','不调用'],ans:0,exp:'幂等性：同一个请求执行多次，结果和执行一次相同。比如支付接口，如果网络超时重试，不能扣两次钱。实现方式：唯一请求ID+Redis去重。'},
   
-  # === Python ===
+  // === Python ===
   {cat:'Python',q:'Python中*args和**kwargs的作用？',opts:['可变参数/关键字参数','列表/字典','元组/集合','字符串/数字'],ans:0,exp:'*args：接收任意数量的位置参数（元组）。**kwargs：接收任意数量的关键字参数（字典）。常用于装饰器、函数包装。面试时能手写示例。'},
   {cat:'Python',q:'Python的GIL是什么？',opts:['全局解释器锁，限制多线程并行','全局变量','垃圾回收机制','内存管理'],ans:0,exp:'GIL（Global Interpreter Lock）：同一时刻只有一个线程执行Python字节码。所以CPU密集型任务用多进程（multiprocessing），IO密集型用多线程（threading）。'},
   
-  # === 自动化 ===
+  // === 自动化 ===
   {cat:'自动化',q:'pytest中fixture的作用？',opts:['测试前置/后置准备','定义测试用例','生成测试报告','并发执行'],ans:0,exp:'fixture：测试用例的前置准备和后置清理。比如测试前创建测试数据，测试后删除。用@pytest.fixture装饰器定义。可以设置scope（function/module/session）。'},
   {cat:'自动化',q:'Selenium如何处理弹窗？',opts:['switch_to.alert','find_element','execute_script','ActionChains'],ans:0,exp:'Selenium处理弹窗：driver.switch_to.alert.accept()（确定）、.dismiss()（取消）、.send_keys()（输入）。还要处理iframe：switch_to.frame()。'},
   
-  # === 面试实战 ===
+  // === 面试实战 ===
   {cat:'面试实战',q:'自我介绍时最重要的是？',opts:['突出与JD匹配的能力','背简历','说兴趣爱好','说薪资要求'],ans:0,exp:'自我介绍不是背简历！要突出与JD匹配的能力：1) 游戏经验；2) Python能力；3) 容灾经验。每个点都要有具体案例支撑。'},
-  # === Trace补充 ===
+  // === Trace补充 ===
   {cat:'Trace',q:'TraceID的作用是什么？',opts:['串联整个调用链路','生成测试用例','自动化部署','数据备份'],ans:0,exp:'TraceID是分布式链路追踪的全局唯一ID，用来串联从客户端到所有后端服务的完整调用链路。没有TraceID，分布式系统排错只能靠猜。'},
   {cat:'Trace',q:'如何用Trace定位性能瓶颈？',opts:['看每个Span的耗时','看日志','看监控大屏','问开发'],ans:0,exp:'用Trace定位性能瓶颈的步骤：1) 用TraceID查完整调用链；2) 看每个Span的耗时（start_time/end_time）；3) 找到耗时最长的Span；4) 分析该Span对应的服务/数据库查询。面试时要能讲一个真实案例。'},
   {cat:'面试实战',q:'面试官问"你的缺点是什么"，怎么答？',opts:['说真实缺点+改进措施','说"我没缺点"','说"我太拼了"','随便说'],ans:0,exp:'标准答案：说一个真实缺点（非致命）+ 改进措施。比如"我之前文档写得不够详细，后来我学习了XX模板，现在文档质量提升明显"。不要说"我太拼了"这种假话。'}
